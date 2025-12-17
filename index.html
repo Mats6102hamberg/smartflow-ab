@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smartflow AB - Digitala lösningar som förenklar vardagen</title>
+    <meta name="description" content="Smartflow AB utvecklar smarta appar och digitala verktyg för företagare och privatpersoner. FakturaSnap, Boris Suite och mer.">
+    
+    <meta property="og:title" content="Smartflow AB - Digitala lösningar">
+    <meta property="og:description" content="Vi utvecklar smarta appar som förenklar vardagen för företagare.">
+    <meta property="og:type" content="website">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #06b6d4;
+            --accent: #f59e0b;
+            --dark: #0f172a;
+            --gray: #64748b;
+            --light: #f1f5f9;
+            --white: #ffffff;
+        }
+        
+        body { font-family: 'Inter', sans-serif; color: var(--dark); line-height: 1.6; }
+        
+        /* Navigation */
+        nav {
+            position: fixed; top: 0; width: 100%;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000; padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 800; text-decoration: none; }
+        .logo-smart { color: var(--primary); }
+        .logo-flow { color: var(--secondary); }
+        .nav-links { display: flex; gap: 2rem; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--gray); font-weight: 500; transition: color 0.2s; }
+        .nav-links a.btn-primary { color: #ffffff !important; }
+        .nav-links a:hover { color: var(--primary); }
+        .nav-links a.btn-primary:hover { color: #ffffff !important; }
+        
+        .btn {
+            display: inline-block; padding: 0.75rem 1.5rem;
+            border-radius: 8px; font-weight: 600;
+            text-decoration: none; transition: all 0.2s;
+            cursor: pointer; border: none; font-size: 1rem;
+        }
+        .btn-primary { background: var(--primary); color: #ffffff !important; }
+        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(99,102,241,0.3); }
+        .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
+        .btn-outline:hover { background: var(--primary); color: white; }
+        .btn-large { padding: 1rem 2rem; font-size: 1.1rem; }
+        
+        /* Hero */
+        .hero {
+            padding: 10rem 2rem 6rem;
+            background: linear-gradient(135deg, #eef2ff 0%, #e0f2fe 50%, #ecfdf5 100%);
+            text-align: center;
+        }
+        .hero-container { max-width: 900px; margin: 0 auto; }
+        .hero h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; }
+        .hero h1 .highlight { background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero p { font-size: 1.3rem; color: var(--gray); margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        
+        /* Stats */
+        .stats {
+            padding: 4rem 2rem;
+            background: var(--dark);
+            color: white;
+        }
+        .stats-container { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; text-align: center; }
+        .stat-item h3 { font-size: 2.5rem; font-weight: 800; color: var(--secondary); }
+        .stat-item p { color: rgba(255,255,255,0.7); margin-top: 0.5rem; }
+        
+        /* Products */
+        .products { padding: 6rem 2rem; background: var(--white); }
+        .section-container { max-width: 1200px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-label {
+            display: inline-block; background: #e0e7ff; color: var(--primary);
+            padding: 0.5rem 1rem; border-radius: 20px;
+            font-size: 0.875rem; font-weight: 600; margin-bottom: 1rem;
+        }
+        .section-title { font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; }
+        .section-subtitle { font-size: 1.1rem; color: var(--gray); max-width: 600px; margin: 0 auto; }
+        
+        .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        .product-card {
+            background: white; border: 1px solid #e2e8f0;
+            border-radius: 16px; padding: 2rem;
+            transition: all 0.3s; position: relative; overflow: hidden;
+        }
+        .product-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); border-color: var(--primary); }
+        .product-card.featured { border: 2px solid var(--primary); }
+        .product-card.featured::before {
+            content: "Flaggskepp"; position: absolute; top: 1rem; right: -2rem;
+            background: var(--primary); color: white; padding: 0.25rem 2rem;
+            font-size: 0.75rem; font-weight: 600; transform: rotate(45deg);
+        }
+        .product-icon { font-size: 3rem; margin-bottom: 1rem; }
+        .product-card h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .product-card .tagline { color: var(--gray); margin-bottom: 1rem; }
+        .product-card p { color: var(--gray); font-size: 0.95rem; margin-bottom: 1.5rem; }
+        .product-features { list-style: none; margin-bottom: 1.5rem; }
+        .product-features li { padding: 0.25rem 0; color: var(--gray); font-size: 0.9rem; }
+        .product-features li::before { content: "✓"; color: var(--secondary); margin-right: 0.5rem; font-weight: bold; }
+        
+        /* About */
+        .about { padding: 6rem 2rem; background: var(--light); }
+        .about-container { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        .about-content h2 { font-size: 2.5rem; margin-bottom: 1.5rem; }
+        .about-content p { color: var(--gray); margin-bottom: 1rem; font-size: 1.1rem; }
+        .about-image {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 16px; height: 400px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 6rem; color: white;
+        }
+        
+        /* Values */
+        .values { padding: 6rem 2rem; background: var(--white); }
+        .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; }
+        .value-card { text-align: center; padding: 2rem; }
+        .value-icon {
+            width: 80px; height: 80px; margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, #e0e7ff, #cffafe);
+            border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; font-size: 2rem;
+        }
+        .value-card h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+        .value-card p { color: var(--gray); }
+        
+        /* Contact */
+        .contact { padding: 6rem 2rem; background: var(--dark); color: white; }
+        .contact-container { max-width: 800px; margin: 0 auto; text-align: center; }
+        .contact h2 { font-size: 2.5rem; margin-bottom: 1rem; }
+        .contact p { color: rgba(255,255,255,0.7); margin-bottom: 2rem; font-size: 1.1rem; }
+        .contact-info { display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; margin-top: 2rem; }
+        .contact-item { text-align: center; }
+        .contact-item h4 { color: var(--secondary); margin-bottom: 0.5rem; }
+        .contact-item p { color: rgba(255,255,255,0.7); }
+        .contact-item a { color: white; text-decoration: none; }
+        .contact-item a:hover { color: var(--secondary); }
+        
+        /* Footer */
+        footer { padding: 2rem; background: #0a0f1a; color: rgba(255,255,255,0.5); text-align: center; }
+        .footer-legal { font-size: 0.85rem; margin-top: 1rem; }
+        
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero h1 { font-size: 2.5rem; }
+            .stats-container { grid-template-columns: repeat(2, 1fr); }
+            .products-grid { grid-template-columns: 1fr; }
+            .about-container { grid-template-columns: 1fr; }
+            .values-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo"><span class="logo-smart">Smart</span><span class="logo-flow">flow</span></a>
+            <div class="nav-links">
+                <a href="#produkter">Produkter</a>
+                <a href="#om-oss">Om oss</a>
+                <a href="#kontakt">Kontakt</a>
+                <a href="#kontakt" class="btn btn-primary">Kontakta oss</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-container">
+            <h1>Digitala lösningar som <span class="highlight">förenklar vardagen</span></h1>
+            <p>Vi utvecklar smarta appar och verktyg för företagare och privatpersoner. Från fakturering till bokföring - vi gör det enkelt.</p>
+            <div class="hero-buttons">
+                <a href="#produkter" class="btn btn-primary btn-large">Se våra produkter</a>
+                <a href="#kontakt" class="btn btn-outline btn-large">Kontakta oss</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-item">
+                <h3>7+</h3>
+                <p>Länder</p>
+            </div>
+            <div class="stat-item">
+                <h3>5+</h3>
+                <p>Produkter</p>
+            </div>
+            <div class="stat-item">
+                <h3>6</h3>
+                <p>Språk</p>
+            </div>
+            <div class="stat-item">
+                <h3>24/7</h3>
+                <p>Support</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products -->
+    <section class="products" id="produkter">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-label">🚀 Våra produkter</span>
+                <h2 class="section-title">Appar som gör skillnad</h2>
+                <p class="section-subtitle">Från fakturering till bokföring - våra verktyg hjälper tusentals användare varje dag.</p>
+            </div>
+            
+            <div class="products-grid">
+                <!-- FakturaSnap -->
+                <div class="product-card featured">
+                    <div class="product-icon">⚡</div>
+                    <h3>FakturaSnap</h3>
+                    <p class="tagline">Smart fakturering med AI</p>
+                    <p>Skapa fakturor på sekunder, skanna kvitton och få automatisk momsberäkning. Perfekt för frilansare.</p>
+                    <ul class="product-features">
+                        <li>AI-driven kvittoskanning</li>
+                        <li>Automatisk momsberäkning</li>
+                        <li>SIE-export till revisor</li>
+                        <li>7 länder (SE, UK, DE, NL, FI, NO, DK)</li>
+                    </ul>
+                    <a href="https://fakturasnap.se" class="btn btn-primary">Prova gratis</a>
+                </div>
+                
+                <!-- Boris Suite -->
+                <div class="product-card">
+                    <div class="product-icon">🤖</div>
+                    <h3>Boris Suite</h3>
+                    <p class="tagline">Din digitala bokföringsassistent</p>
+                    <p>Boris är en AI-assistent som hjälper dig med moms, skatt och bokföring. Han pratar ditt språk!</p>
+                    <ul class="product-features">
+                        <li>Skatt-O-Meter i realtid</li>
+                        <li>Prospero-prognos</li>
+                        <li>Avtalsscanner</li>
+                        <li>Lokaliserad för varje land</li>
+                    </ul>
+                    <a href="#" class="btn btn-outline">Läs mer</a>
+                </div>
+                
+                <!-- Pétanque-boken -->
+                <div class="product-card">
+                    <div class="product-icon">🎯</div>
+                    <h3>Pétanque-guiden</h3>
+                    <p class="tagline">Den kompletta guiden</p>
+                    <p>Allt du behöver veta om pétanque - från nybörjare till avancerad. Digital bok i 6 språk.</p>
+                    <ul class="product-features">
+                        <li>16 kapitel</li>
+                        <li>Matchprotokoll</li>
+                        <li>Träningsjournal</li>
+                        <li>6 språk</li>
+                    </ul>
+                    <a href="#" class="btn btn-outline">Läs mer</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section class="about" id="om-oss">
+        <div class="about-container">
+            <div class="about-content">
+                <h2>Om Smartflow AB</h2>
+                <p>Vi är ett svenskt techbolag som utvecklar digitala verktyg för att förenkla vardagen för företagare och privatpersoner.</p>
+                <p>Vår filosofi är enkel: teknik ska vara tillgänglig för alla. Därför bygger vi appar som är lätta att använda, prisvärda och som faktiskt löser riktiga problem.</p>
+                <p>Med kunder i 7 länder och produkter på 6 språk växer vi snabbt - men vi glömmer aldrig att det handlar om att hjälpa människor.</p>
+            </div>
+            <div class="about-image">
+                🚀
+            </div>
+        </div>
+    </section>
+
+    <!-- Values -->
+    <section class="values">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-label">💡 Våra värderingar</span>
+                <h2 class="section-title">Det vi tror på</h2>
+            </div>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">🎯</div>
+                    <h3>Enkelhet</h3>
+                    <p>Teknik ska vara lätt att använda. Vi tar bort krånglet så du kan fokusera på det viktiga.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🤝</div>
+                    <h3>Rättvisa</h3>
+                    <p>Rättvis prissättning för alla. Små företag ska ha råd med bra verktyg.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🌍</div>
+                    <h3>Tillgänglighet</h3>
+                    <p>Våra produkter finns på flera språk och anpassas för lokala regler i varje land.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="kontakt">
+        <div class="contact-container">
+            <h2>Kontakta oss</h2>
+            <p>Har du frågor om våra produkter eller vill samarbeta? Hör av dig!</p>
+            <a href="mailto:info@smartflow.se" class="btn btn-primary btn-large">info@smartflow.se</a>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <h4>Företag</h4>
+                    <p>Smartflow AB</p>
+                </div>
+                <div class="contact-item">
+                    <h4>Org.nr</h4>
+                    <p>559050-6894</p>
+                </div>
+                <div class="contact-item">
+                    <h4>Moms.nr</h4>
+                    <p>SE559050689401</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p><span class="logo-smart">Smart</span><span class="logo-flow">flow</span> AB</p>
+        <p class="footer-legal">© 2024 Smartflow AB. Alla rättigheter förbehållna. Org.nr: 559050-6894</p>
+    </footer>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
