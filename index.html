@@ -113,6 +113,45 @@
         .product-features li { padding: 0.25rem 0; color: var(--gray); font-size: 0.9rem; }
         .product-features li::before { content: "✓"; color: var(--secondary); margin-right: 0.5rem; font-weight: bold; }
         
+        /* Product Modal */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); z-index: 2000; align-items: center; justify-content: center;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal {
+            background: white; border-radius: 20px; max-width: 500px; width: 90%; max-height: 90vh;
+            overflow-y: auto; position: relative; animation: modalIn 0.3s ease;
+        }
+        @keyframes modalIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        .modal-header {
+            padding: 2rem 2rem 1rem; border-bottom: 1px solid #e2e8f0;
+        }
+        .modal-header h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .modal-header p { color: var(--gray); }
+        .modal-close {
+            position: absolute; top: 1rem; right: 1rem; background: none; border: none;
+            font-size: 1.5rem; cursor: pointer; color: var(--gray);
+        }
+        .modal-close:hover { color: var(--dark); }
+        .modal-body { padding: 1.5rem 2rem; }
+        .modal-features { list-style: none; margin-bottom: 1.5rem; }
+        .modal-features li { padding: 0.5rem 0; color: var(--gray); border-bottom: 1px solid #f1f5f9; }
+        .modal-features li::before { content: "✓"; color: var(--secondary); margin-right: 0.75rem; font-weight: bold; }
+        .pricing-options { display: flex; flex-direction: column; gap: 0.75rem; }
+        .pricing-btn {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1rem 1.25rem; border-radius: 12px; border: 2px solid #e2e8f0;
+            background: white; cursor: pointer; transition: all 0.2s; text-decoration: none;
+        }
+        .pricing-btn:hover { border-color: var(--primary); background: #f8faff; }
+        .pricing-btn.featured { border-color: var(--primary); background: linear-gradient(135deg, #eef2ff, #e0f2fe); }
+        .pricing-btn .plan-name { font-weight: 600; color: var(--dark); }
+        .pricing-btn .plan-price { font-weight: 700; color: var(--primary); }
+        .pricing-btn .plan-note { font-size: 0.75rem; color: var(--gray); }
+        .pricing-btn.free { border-color: #10b981; }
+        .pricing-btn.free .plan-price { color: #10b981; }
+        
         /* About */
         .about { padding: 6rem 2rem; background: var(--light); }
         .about-container { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
@@ -199,7 +238,7 @@
                 <p>Länder</p>
             </div>
             <div class="stat-item">
-                <h3>5+</h3>
+                <h3>10+</h3>
                 <p>Produkter</p>
             </div>
             <div class="stat-item">
@@ -266,6 +305,129 @@
                         <li>6 språk</li>
                     </ul>
                     <a href="#" class="btn btn-outline">Läs mer</a>
+                </div>
+            </div>
+            
+            <!-- Iris Section -->
+            <div class="section-header" style="margin-top: 4rem;">
+                <span class="section-label">🔮 Iris</span>
+                <h2 class="section-title">Din holistiska guide</h2>
+                <p class="section-subtitle">Upptäck dig själv genom astrologi, numerologi, färganalys och tarot - allt i en app.</p>
+            </div>
+            
+            <div class="products-grid">
+                <!-- Iris -->
+                <div class="product-card" onclick="window.open('https://iris-a38exsib5-mats-hambergs-projects.vercel.app', '_blank')" style="cursor: pointer;">
+                    <div class="product-icon">🔮</div>
+                    <h3>Iris</h3>
+                    <p class="tagline">Holistisk självinsikt</p>
+                    <p>Utforska din unika energisignatur genom astrologi, numerologi, färganalys och tarot. Gamification med streaks, achievements och dagliga utmaningar.</p>
+                    <ul class="product-features">
+                        <li>Personligt horoskop</li>
+                        <li>Numerologi & livssiffra</li>
+                        <li>Färganalys & palett</li>
+                        <li>Tarot med animationer</li>
+                    </ul>
+                    <span class="btn btn-primary">Öppna Iris →</span>
+                </div>
+            </div>
+            
+            <!-- Textscanner Products Section -->
+            <div class="section-header" style="margin-top: 4rem;">
+                <span class="section-label">📄 Textscanner</span>
+                <h2 class="section-title">AI-drivna textverktyg</h2>
+                <p class="section-subtitle">Skanna, analysera och bearbeta dokument med AI. Perfekt för privatpersoner, företag och organisationer.</p>
+            </div>
+            
+            <div class="products-grid">
+                <!-- Dagboksscannern -->
+                <div class="product-card" onclick="openModal('dagbok')" style="cursor: pointer;">
+                    <div class="product-icon">📘</div>
+                    <h3>Dagboksscannern</h3>
+                    <p class="tagline">Digitalisera dina minnen</p>
+                    <p>Skanna handskrivna dagböcker, förtydliga text med AI och skapa berättelser av dina minnen.</p>
+                    <ul class="product-features">
+                        <li>OCR för handskriven text</li>
+                        <li>AI-förtydligande</li>
+                        <li>Skapa berättelser</li>
+                        <li>Exportera som PDF</li>
+                    </ul>
+                    <span class="btn btn-primary">Välj plan →</span>
+                </div>
+                
+                <!-- Avtalsscannern -->
+                <div class="product-card" onclick="openModal('avtal')" style="cursor: pointer;">
+                    <div class="product-icon">📄</div>
+                    <h3>Avtalsscannern</h3>
+                    <p class="tagline">Förstå dina avtal</p>
+                    <p>Ladda upp avtal och försäkringar, få AI-analys av risker och få avtalet förklarat på enkel svenska.</p>
+                    <ul class="product-features">
+                        <li>Riskanalys med AI</li>
+                        <li>Förenkla juridisk text</li>
+                        <li>Flera språk</li>
+                        <li>Exportera sammanfattning</li>
+                    </ul>
+                    <span class="btn btn-primary">Välj plan →</span>
+                </div>
+                
+                <!-- Maskeringsverktyget -->
+                <div class="product-card" onclick="openModal('maskering')" style="cursor: pointer;">
+                    <div class="product-icon">🔒</div>
+                    <h3>Maskeringsverktyget</h3>
+                    <p class="tagline">Skydda känslig information</p>
+                    <p>Maskera personnummer, adresser och känsliga uppgifter innan du delar dokument vidare.</p>
+                    <ul class="product-features">
+                        <li>Automatisk identifiering</li>
+                        <li>GDPR-vänligt</li>
+                        <li>PDF och bilder</li>
+                        <li>Perfekt för organisationer</li>
+                    </ul>
+                    <span class="btn btn-primary">Välj plan →</span>
+                </div>
+                
+                <!-- Minnesböcker -->
+                <div class="product-card" onclick="openModal('minnesbok')" style="cursor: pointer;">
+                    <div class="product-icon">📖</div>
+                    <h3>Minnesböcker</h3>
+                    <p class="tagline">Skapa en bok av dina minnen</p>
+                    <p>Ladda upp dagboksmaterial och låt AI skapa en vacker minnesbok med kapitel och tidslinje.</p>
+                    <ul class="product-features">
+                        <li>Automatisk kapitelindelning</li>
+                        <li>Tidslinje</li>
+                        <li>Personregister</li>
+                        <li>Exportera som bok</li>
+                    </ul>
+                    <span class="btn btn-primary">Välj plan →</span>
+                </div>
+                
+                <!-- SläktMagi -->
+                <div class="product-card" onclick="openModal('slaktmagi')" style="cursor: pointer;">
+                    <div class="product-icon">🌳</div>
+                    <h3>SläktMagi</h3>
+                    <p class="tagline">Utforska din släkthistoria</p>
+                    <p>Bygg släktträd, skapa tidslinjer och generera utkast baserat på dagboksmaterial.</p>
+                    <ul class="product-features">
+                        <li>Interaktivt släktträd</li>
+                        <li>Tidslinje</li>
+                        <li>AI-genererade utkast</li>
+                        <li>Exportera som film</li>
+                    </ul>
+                    <span class="btn btn-primary">Välj plan →</span>
+                </div>
+                
+                <!-- Språkverktyget -->
+                <div class="product-card" onclick="openModal('sprak')" style="cursor: pointer;">
+                    <div class="product-icon">🌐</div>
+                    <h3>Språkverktyget</h3>
+                    <p class="tagline">Förenkla och översätt</p>
+                    <p>Förenkla svår text, sammanfatta dokument och översätt mellan flera språk med AI.</p>
+                    <ul class="product-features">
+                        <li>Förenkla text</li>
+                        <li>Sammanfatta dokument</li>
+                        <li>Översätt flera språk</li>
+                        <li>Anpassa för målgrupp</li>
+                    </ul>
+                    <span class="btn btn-primary">Välj plan →</span>
                 </div>
             </div>
         </div>
@@ -343,7 +505,132 @@
         <p class="footer-legal">© 2024 Smartflow AB. Alla rättigheter förbehållna. Org.nr: 559050-6894</p>
     </footer>
 
+    <!-- Product Modal -->
+    <div class="modal-overlay" id="productModal" onclick="closeModal(event)">
+        <div class="modal" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div class="modal-header">
+                <h3 id="modalTitle">Produktnamn</h3>
+                <p id="modalDescription">Beskrivning</p>
+            </div>
+            <div class="modal-body">
+                <ul class="modal-features" id="modalFeatures">
+                </ul>
+                <h4 style="margin-bottom: 1rem; font-size: 1rem;">Välj din plan:</h4>
+                <div class="pricing-options">
+                    <a href="#" class="pricing-btn free" id="btnFree">
+                        <div>
+                            <div class="plan-name">🎁 Gratis test</div>
+                            <div class="plan-note">5 dokument, sedan vänta 1 år</div>
+                        </div>
+                        <div class="plan-price">0 kr</div>
+                    </a>
+                    <a href="#" class="pricing-btn" id="btnMonthly">
+                        <div>
+                            <div class="plan-name">📅 Månadsprenumeration</div>
+                            <div class="plan-note">Obegränsat antal dokument</div>
+                        </div>
+                        <div class="plan-price">99 kr/mån</div>
+                    </a>
+                    <a href="#" class="pricing-btn featured" id="btnYearly">
+                        <div>
+                            <div class="plan-name">⭐ Årsprenumeration</div>
+                            <div class="plan-note">Spara 17% - bästa värdet!</div>
+                        </div>
+                        <div class="plan-price">990 kr/år</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // Product data
+        const products = {
+            dagbok: {
+                title: "Dagboksscannern",
+                description: "Skanna handskrivna dagböcker och förtydliga text med AI.",
+                features: ["OCR för handskriven text", "AI-förtydligande av gammal text", "Skapa berättelser automatiskt", "Exportera som PDF", "Inkluderar Minnesböcker & SläktMagi"],
+                monthlyPrice: "99 kr/mån",
+                yearlyPrice: "990 kr/år",
+                link: "https://textscanner.smartflow.se/dagbok"
+            },
+            avtal: {
+                title: "Avtalsscannern",
+                description: "Få AI-analys av avtal och försäkringar.",
+                features: ["Riskanalys med AI", "Förenkla juridisk text", "Stöd för flera språk", "Exportera sammanfattning", "Skicka till Prospero"],
+                monthlyPrice: "99 kr/mån",
+                yearlyPrice: "990 kr/år",
+                link: "https://textscanner.smartflow.se/avtal"
+            },
+            maskering: {
+                title: "Maskeringsverktyget",
+                description: "Maskera känslig information i dokument.",
+                features: ["Automatisk identifiering av personnummer", "Maskera adresser och kontaktuppgifter", "GDPR-vänligt", "PDF och bilder", "Perfekt för företag & kommuner"],
+                monthlyPrice: "149 kr/mån",
+                yearlyPrice: "1 490 kr/år",
+                link: "https://textscanner.smartflow.se/maskering"
+            },
+            minnesbok: {
+                title: "Minnesböcker",
+                description: "Skapa en vacker minnesbok av dagboksmaterial.",
+                features: ["Automatisk kapitelindelning", "Tidslinje över händelser", "Personregister", "Temaanalys", "Exportera som bok"],
+                monthlyPrice: "99 kr/mån",
+                yearlyPrice: "990 kr/år",
+                link: "https://textscanner.smartflow.se/minnesbok"
+            },
+            slaktmagi: {
+                title: "SläktMagi",
+                description: "Bygg släktträd och utforska din historia.",
+                features: ["Interaktivt släktträd", "Tidslinje", "AI-genererade utkast", "Relationsanalys", "Exportera som film"],
+                monthlyPrice: "99 kr/mån",
+                yearlyPrice: "990 kr/år",
+                link: "https://textscanner.smartflow.se/slaktmagin"
+            },
+            sprak: {
+                title: "Språkverktyget",
+                description: "Förenkla, sammanfatta och översätt text.",
+                features: ["Förenkla svår text", "Sammanfatta dokument", "Översätt mellan språk", "Anpassa för målgrupp", "Stöd för flera format"],
+                monthlyPrice: "79 kr/mån",
+                yearlyPrice: "790 kr/år",
+                link: "https://textscanner.smartflow.se/sprak"
+            }
+        };
+
+        function openModal(productId) {
+            const product = products[productId];
+            if (!product) return;
+            
+            document.getElementById('modalTitle').textContent = product.title;
+            document.getElementById('modalDescription').textContent = product.description;
+            
+            const featuresList = document.getElementById('modalFeatures');
+            featuresList.innerHTML = product.features.map(f => `<li>${f}</li>`).join('');
+            
+            // Update prices
+            document.querySelector('#btnMonthly .plan-price').textContent = product.monthlyPrice;
+            document.querySelector('#btnYearly .plan-price').textContent = product.yearlyPrice;
+            
+            // Update links (placeholder - would connect to payment system)
+            document.getElementById('btnFree').href = product.link + '?plan=free';
+            document.getElementById('btnMonthly').href = product.link + '?plan=monthly';
+            document.getElementById('btnYearly').href = product.link + '?plan=yearly';
+            
+            document.getElementById('productModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(event) {
+            if (event && event.target !== event.currentTarget) return;
+            document.getElementById('productModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeModal();
+        });
+
         // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
